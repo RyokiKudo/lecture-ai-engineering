@@ -22,7 +22,7 @@ class DataLoader:
             return pd.read_csv(path)
         else:
             # ローカルのファイル
-            
+
             local_path = "C:/Users/c0b22053f1/Documents/leraning/TokyoUT_AIeng/lecture-ai-engineering/day5/演習2/data/Titanic.csv"
             if os.path.exists(local_path):
                 return pd.read_csv(local_path)
