@@ -11,6 +11,7 @@ import pickle
 import time
 import great_expectations as gx
 
+
 class DataLoader:
     """データロードを行うクラス"""
 
@@ -21,7 +22,7 @@ class DataLoader:
             return pd.read_csv(path)
         else:
             # ローカルのファイル
-            local_path = "data/Titanic.csv"
+            local_path = "C:/Users/c0b22053f1/Documents/leraning/TokyoUT_AIeng/lecture-ai-engineering/day5/演習2/data/Titanic.csv"
             if os.path.exists(local_path):
                 return pd.read_csv(local_path)
 
@@ -243,9 +244,7 @@ def test_model_performance():
     ), f"モデル性能がベースラインを下回っています: {metrics['accuracy']}"
 
     # 推論時間の確認
-    assert (
-        metrics["inference_time"] < 1.0
-    ), f"推論時間が長すぎます: {metrics['inference_time']}秒"
+    assert metrics["inference_time"] < 1.0, f"推論時間が長すぎます: {metrics['inference_time']}秒"
 
 
 if __name__ == "__main__":
@@ -285,3 +284,15 @@ if __name__ == "__main__":
     # ベースラインとの比較
     baseline_ok = ModelTester.compare_with_baseline(metrics)
     print(f"ベースライン比較: {'合格' if baseline_ok else '不合格'}")
+
+    def test_inference_speed_and_accuracy():
+        """推論速度と精度のテスト"""
+        # モデル読み込み
+        model = ModelTester.load_model(model_path)
+
+        # テストデータでの評価
+        metrics = ModelTester.evaluate_model(model, X_test, y_test)
+
+        # 精度と推論時間のアサーション
+        assert metrics["accuracy"] >= 0.75, "精度がベースラインを下回っています"
+        assert metrics["inference_time"] < 1.0, "推論時間が長すぎます"
