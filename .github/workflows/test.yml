@@ -31,7 +31,8 @@ jobs:
     - name: Format check with black
       run: |
         black --check day5/演習2
-        
+
     - name: Run pytest on main.py
       run: |
         pytest day5/演習2/main.py -v   
+        
